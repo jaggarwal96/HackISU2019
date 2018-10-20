@@ -1,1 +1,1 @@
-git+https://github.com/tweepy/tweepy.gits
+git+https://github.com/tweepy/tweepy.git

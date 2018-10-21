@@ -102,7 +102,7 @@ def BFS(s):
 
                 url = "https://twitter.com/intent/user?user_id=" + str(fr)
 
-                time.sleep(1)
+                time.sleep(10)
                 content = urlopen(url)
 
                 soup = BeautifulSoup(content, 'html.parser')

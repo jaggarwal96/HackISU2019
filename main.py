@@ -1,4 +1,3 @@
-import urllib
 
 import tweepy
 from tweepy import OAuthHandler
@@ -30,28 +29,33 @@ companies = {
     "Netflix" : "NFLX",
     "Amazon" : "AMZN",
     "Alphabet" : "GOOG",
+    "Google" : "GOOG",
     "Facebook" : "FB",
     "Cisco" : "CSCO",
     "Coca Cola" : "KO",
+    "Coke" : "KO",
     "Johnson & Johnson": "JNJ",
     "Exxon Mobil" : "XOM",
     "Walmart" : "WMT",
     "AT&T" : "T",
     "Home Depot" : "HD",
     "Walt Disney" : "DIS",
+    "Disney" : "DIS",
     "Comcast" : "CMCSA",
     "Philip Morris" : "PM",
     "AbbVie" : "ABBV",
     "McDonald's" : "MCD",
+    "McDonalds" : "MCD",
     "Nike" : "NKE",
     "Twitter" : "TWTR",
     "Union Pacific" : "UNP",
     "General Electric" : "GE",
     "Rockwell Collins" : "COL",
-    "Deere & Company" : "DE",
+    "John Deere" : "DE",
     "UnitedHealth Group" : "UNH",
+    "Optum" : "UNH",
     "Cerner" : "CERN",
-    "Principal Financial Group" : "PFG"
+    "Principal Financial" : "PFG"
 }
 
 def BFS(s):
@@ -82,7 +86,7 @@ def BFS(s):
             for fr in following:
                 url = "https://twitter.com/intent/user?user_id=" + str(fr)
 
-                time.sleep(1)
+                time.sleep(10)
                 content = urlopen(url)
 
                 soup = BeautifulSoup(content, 'html.parser')
@@ -104,10 +108,10 @@ def BFS(s):
 
 def get_ticker(tweet):
     for company in companies.items():
-        if company[0] in tweet:
+        if company[0].lower() in tweet.lower():
             return company[1]
 
     return None
 
 if __name__ == '__main__':
-    BFS("CNBC")
+    BFS("Developer_Joel")

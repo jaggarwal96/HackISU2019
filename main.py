@@ -64,7 +64,12 @@ companies = {
     "Alibaba" : "BABA",
     "Intel" : "INTC",
     "Wells Fargo" : "WFC",
-    "Oracle" : "ORCL"
+    "Oracle" : "ORCL",
+    "Square" : "SQ",
+    "NVIDIA" : "NVDA",
+    "Ebay" : "EBAY",
+    "Starbucks" : "SBUX",
+    "Visa" : "V"
 }
 
 def BFS(s):

@@ -50,12 +50,21 @@ companies = {
     "Twitter" : "TWTR",
     "Union Pacific" : "UNP",
     "General Electric" : "GE",
+    "GE": "GE",
     "Rockwell Collins" : "COL",
     "John Deere" : "DE",
     "UnitedHealth Group" : "UNH",
     "Optum" : "UNH",
     "Cerner" : "CERN",
-    "Principal Financial" : "PFG"
+    "Principal Financial" : "PFG",
+    "AMD" : "AMD",
+    "Advanced Micro Devices" : "AMD",
+    "Bank of America" : "BAC",
+    "Micron" : "MU",
+    "Alibaba" : "BABA",
+    "Intel" : "INTC",
+    "Wells Fargo" : "WFC",
+    "Oracle" : "ORCL"
 }
 
 def BFS(s):

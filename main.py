@@ -20,7 +20,7 @@ conn = psycopg2.connect(database="hack-isu", user="postgres", password="twitterb
 
 api = tweepy.API(auth)
 
-visitHandles = {}
+visitHandles = set()
 
 companies = {
     "Microsoft" : "MSFT",
@@ -86,6 +86,7 @@ def BFS(s):
         item = heapq.heappop(heap)
 
         if item[1] not in visitHandles:
+            visitHandles.add(item[1])
 
             tweets_list = tweets_scrapper.start(item[1])
             for tweet in tweets_list:
@@ -98,9 +99,10 @@ def BFS(s):
 
             following = api.friends_ids(item[1])[0:50]
             for fr in following:
+
                 url = "https://twitter.com/intent/user?user_id=" + str(fr)
 
-                time.sleep(10)
+                time.sleep(1)
                 content = urlopen(url)
 
                 soup = BeautifulSoup(content, 'html.parser')
@@ -128,4 +130,4 @@ def get_ticker(tweet):
     return None
 
 if __name__ == '__main__':
-    BFS("Developer_Joel")
+    BFS("washingtonpost")

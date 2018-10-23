@@ -51,8 +51,6 @@ companies = {
     "Nike" : "NKE",
     "Twitter" : "TWTR",
     "Union Pacific" : "UNP",
-    "General Electric" : "GE",
-    "GE": "GE",
     "Rockwell Collins" : "COL",
     "John Deere" : "DE",
     "UnitedHealth Group" : "UNH",

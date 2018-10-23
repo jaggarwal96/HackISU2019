@@ -39,7 +39,6 @@ companies = {
     "Exxon Mobil" : "XOM",
     "Walmart" : "WMT",
     "AT&T" : "T",
-    "ATT" : "T",
     "Home Depot" : "HD",
     "Walt Disney" : "DIS",
     "Disney" : "DIS",
@@ -72,7 +71,21 @@ companies = {
     "Visa" : "V",
     "alarm.com" : "ALRM",
     "alarmcom" : "ALRM",
-    "alarmdotcom" : "ALRM"
+    "alarmdotcom" : "ALRM",
+    "Ford" : "F",
+    "Micron" : "MU",
+    "Ambev" : "ABEV",
+    "Chesapeake" : "CHK",
+    "Verizon" : "VZ",
+    "Halliburton" :"HAL",
+    "Snapchat" : "SNAP",
+    "Paypal" : "PYPL",
+    "Roku" : "ROKU",
+    "Caterpillar" : "CAT",
+    "Zynga" : "ZNGA",
+    "CSX" : "CSX",
+    "TAKE-TWO" : "TTWO",
+    "TAKE TWO" : "TTWO"
 }
 
 def BFS(s):
@@ -98,7 +111,7 @@ def BFS(s):
                 if ticker:
                     cur = conn.cursor()
                     cur.execute('''INSERT INTO public.tweets(ticker, tweet, score, tweeter_handle) VALUES ('{}', '{}', {}, '{}');'''
-                                .format(ticker, tweet.replace("'", "").replace('"', ""), item[0], item[1]))
+                                .format(ticker, tweet.replace("'", "").replace('"', ""), 1/item[0], item[1]))
                     conn.commit()
 
             following = api.friends_ids(item[1])
@@ -108,7 +121,7 @@ def BFS(s):
 
                 url = "https://twitter.com/intent/user?user_id=" + str(fr)
 
-                time.sleep(10)
+                time.sleep(8)
                 content = urlopen(url)
 
                 soup = BeautifulSoup(content, 'html.parser')
@@ -120,12 +133,14 @@ def BFS(s):
                     verified = soup.find("li", class_="verified").string
                 except AttributeError:
                     continue
-
-
-                if (verified.strip() == "Verified account"):
-                    heapq.heappush(heap, (1 / int(followers) * 2 ,handle))
-                else:
-                    heapq.heappush(heap, (1 / int(followers), handle))
+                if int(followers) < 25000000:
+                    print(handle)
+                    if verified.strip() == "Verified account" and int(followers) > 10000 and int(followers) < 20000000:
+                        heapq.heappush(heap, (1 / (int(followers) * 2) ,handle))
+                    elif int(followers) > 1000000:
+                        heapq.heappush(heap, (1 / (int(followers) * 1.5), handle))
+                    else:
+                        heapq.heappush(heap, (1 / int(followers), handle))
 
     conn.close()
 
@@ -137,4 +152,4 @@ def get_ticker(tweet):
     return None
 
 if __name__ == '__main__':
-    BFS("cnbc")
+    BFS("developer_joel")

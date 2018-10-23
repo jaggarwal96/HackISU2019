@@ -69,7 +69,9 @@ companies = {
     "NVIDIA" : "NVDA",
     "Ebay" : "EBAY",
     "Starbucks" : "SBUX",
-    "Visa" : "V"
+    "Visa" : "V",
+    "Alarm.com" : "ALRM",
+    "Alarmcom" : "ALRM"
 }
 
 def BFS(s):

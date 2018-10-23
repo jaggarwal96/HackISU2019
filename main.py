@@ -8,6 +8,7 @@ import time
 import tweets_scrapper
 import heapq
 import psycopg2
+import random
 
 consumer_key = 'WCqb4vOIcppLOHxJD4Z4q2xwQ'
 consumer_secret = 'kWWChyjsJjeyKZQRUSDs2qnojuBhfWBXxjz11TyfqEdMmcgjEj'
@@ -38,6 +39,7 @@ companies = {
     "Exxon Mobil" : "XOM",
     "Walmart" : "WMT",
     "AT&T" : "T",
+    "ATT" : "T",
     "Home Depot" : "HD",
     "Walt Disney" : "DIS",
     "Disney" : "DIS",
@@ -69,7 +71,10 @@ companies = {
     "NVIDIA" : "NVDA",
     "Ebay" : "EBAY",
     "Starbucks" : "SBUX",
-    "Visa" : "V"
+    "Visa" : "V",
+    "alarm.com" : "ALRM",
+    "alarmcom" : "ALRM",
+    "alarmdotcom" : "ALRM"
 }
 
 def BFS(s):
@@ -88,6 +93,7 @@ def BFS(s):
         if item[1] not in visitHandles:
             visitHandles.add(item[1])
 
+
             tweets_list = tweets_scrapper.start(item[1])
             for tweet in tweets_list:
                 ticker = get_ticker(tweet)
@@ -97,7 +103,9 @@ def BFS(s):
                                 .format(ticker, tweet.replace("'", "").replace('"', ""), item[0], item[1]))
                     conn.commit()
 
-            following = api.friends_ids(item[1])[0:50]
+            following = api.friends_ids(item[1])
+            random.shuffle(following)
+            following = following[0:10]
             for fr in following:
 
                 url = "https://twitter.com/intent/user?user_id=" + str(fr)
@@ -115,10 +123,11 @@ def BFS(s):
                 except AttributeError:
                     continue
 
+
                 if (verified.strip() == "Verified account"):
-                    heapq.heappush(heap, (int(followers) * 2 ,handle))
+                    heapq.heappush(heap, (1 / int(followers) * 2 ,handle))
                 else:
-                    heapq.heappush(heap, (int(followers), handle))
+                    heapq.heappush(heap, (1 / int(followers), handle))
 
     conn.close()
 
@@ -130,4 +139,4 @@ def get_ticker(tweet):
     return None
 
 if __name__ == '__main__':
-    BFS("washingtonpost")
+    BFS("cnbc")
